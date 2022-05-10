@@ -38,6 +38,8 @@ jobs:
       - name: Install dependencies on macos
         if: startsWith(matrix.os, 'macos')
         run: |
+          
+          which latex
           cd utils/cicd-scripts
           chmod 755 macos-dependencies
           ./macos-dependencies
