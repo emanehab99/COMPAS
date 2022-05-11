@@ -41,7 +41,6 @@ jobs:
           cd utils/cicd-scripts
           chmod 755 macos-dependencies
           ./macos-dependencies
-          which latex
 
       # This step will run only on all runners
       # **To be investgated further** COMPAS doesn't build on Centos
