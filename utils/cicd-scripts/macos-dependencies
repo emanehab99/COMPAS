@@ -6,11 +6,11 @@ brew --version
 brew install gsl
 brew install boost
 brew install hdf5
-brew install mactex
-eval "$(/usr/libexec/path_helper)"
-export PATH="/usr/local/texlive:/Library/TeX/texbin:$PATH"
-pdflatex --version
-which latex
+# brew install mactex
+# eval "$(/usr/libexec/path_helper)"
+# export PATH="/usr/local/texlive:/Library/TeX/texbin:$PATH"
+# pdflatex --version
+# which latex
 
 # brew install basictex
 # eval "$(/usr/libexec/path_helper)"

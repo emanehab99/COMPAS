@@ -61,7 +61,19 @@ jobs:
       # **To be investigated further** plotting script is currently failing on macos because 
       # for some reason it cannot recognise latex is installed
       - name: Run Post-Processing Python Scripts
+        if: startsWith(matrix.os, 'ubuntu-20') || startsWith(matrix.os, 'ubuntu-18')
         run: |
+          cd utils/cicd-scripts
+          chmod 755 python-scripts
+          ./python-scripts
+
+      - name: run python scripts on macos
+        if: startsWith(matrix.os, 'macos')
+        run: |
+          brew install mactex
+          eval "$(/usr/libexec/path_helper)"
+          export PATH="/usr/local/texlive:/Library/TeX/texbin:$PATH"
+          pdflatex --version
           which latex
           cd utils/cicd-scripts
           chmod 755 python-scripts
