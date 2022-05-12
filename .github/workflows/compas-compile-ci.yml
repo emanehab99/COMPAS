@@ -70,11 +70,16 @@ jobs:
       - name: run python scripts on macos
         if: startsWith(matrix.os, 'macos')
         run: |
-          brew install mactex
+          brew install basictex
           eval "$(/usr/libexec/path_helper)"
           export PATH="/usr/local/texlive:/Library/TeX/texbin:$PATH"
           pdflatex --version
           which latex
-          cd utils/cicd-scripts
-          chmod 755 python-scripts
-          ./python-scripts
+          # cd utils/cicd-scripts
+          # chmod 755 python-scripts
+          # ./python-scripts
+          export COMPAS_ROOT_DIR=${GITHUB_WORKSPACE}
+          cd ${GITHUB_WORKSPACE}/utils/example_plots/methods_paper_plots/detailed_evolution
+          python3 runSubmitDemo.py
+          python3 plot_detailed_evolution.py
+
