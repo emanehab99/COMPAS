@@ -71,7 +71,7 @@ jobs:
         if: startsWith(matrix.os, 'macos')
         run: |
           # brew install basictex
-          # brew install texlive
+          brew install texlive
           # eval "$(/usr/libexec/path_helper)"
           # export PATH="/usr/local/texlive:/Library/TeX/texbin:$PATH"
           # sudo tlmgr update --self
