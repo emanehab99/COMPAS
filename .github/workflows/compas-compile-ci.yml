@@ -1,9 +1,8 @@
 name: COMPAS compile test
 
-on: 
-  pull_request:
-    branches: [dev]
-    paths: ['main/**'] # only changes to src/ trigger this workflow
+on: [pull_request]
+    # branches: [dev]
+    # paths: ['main/**'] # only changes to src/ trigger this workflow
   # push: 
     # branches: [dev]
     # paths: ['main/**']
