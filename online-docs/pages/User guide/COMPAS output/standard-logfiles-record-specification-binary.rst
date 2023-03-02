@@ -447,23 +447,21 @@ Binary Properties
            :widths: 35 5
            :header-rows: 0
            :class: aligned-text
-           
-           * - NO MASS TRANSFER
+
+           * - NO MASS TRANSFER 
              - = 0
-           * - STABLE FROM 1 TO 2
+           * - MASS TRANSFER STABLE STAR1 -> STAR2 
              - = 1
-           * - STABLE FROM 2 TO 1
+           * - MASS TRANSFER STABLE STAR2 -> STAR1 
              - = 2
-           * - CE FROM 1 TO 2
+           * - MASS TRANSFER COMMON ENVELOPE STAR1 -> STAR2 
              - = 3
-           * - CE FROM 2 TO 1
+           * - MASS TRANSFER COMMON ENVELOPE STAR2 -> STAR1 
              - = 4
-           * - CE DOUBLE CORE
+           * - MASS TRANSFER COMMON ENVELOPE DOUBLE CORE 
              - = 5
-           * - CE BOTH MS
+           * - MASS TRANSFER -> MERGER 
              - = 6
-           * - CE MS WITH CO
-             - = 7
 
    * - Header String:
      - MT_History
@@ -867,16 +865,32 @@ but not both. If both are printed then the file will contain two columns with th
    :header-rows: 0
    :class: aligned-text
 
-   * - :cspan:`2` **RLOF_POST_MT_TIME**
+   * - :cspan:`2` **RLOF_POST_STEP_STAR_TO_ROCHE_LOBE_RADIUS_RATIO_1**
      -
    * - Data type:
      - DOUBLE
    * - COMPAS variable:
-     - BaseBinaryStar::m_RLOFDetails.propsPostMT→time
+     - `derived from` BaseBinaryStar::m_RLOFDetails.propsPostMT→starToRocheLobeRadiusRatio1
    * - Description:
-     - Time since ZAMS (Myr) immediately after RLOF.
+     - Ratio of star 1 radius to its RL, at the end of the timestep.
    * - Header String:
-     - Time>MT
+     - Radius(1)|RL>step
+
+.. flat-table::
+   :widths: 25 75 1 1
+   :header-rows: 0
+   :class: aligned-text
+
+   * - :cspan:`2` **RLOF_POST_STEP_STAR_TO_ROCHE_LOBE_RADIUS_RATIO_2**
+     -
+   * - Data type:
+     - DOUBLE
+   * - COMPAS variable:
+     - `derived from` BaseBinaryStar::m_RLOFDetails.propsPostMT→starToRocheLobeRadiusRatio2
+   * - Description:
+     - Ratio of star 2 radius to its RL, at the end of the timestep.
+   * - Header String:
+     - Radius(2)|RL>step
 
 .. flat-table::
    :widths: 25 75 1 1
@@ -1087,12 +1101,60 @@ but not both. If both are printed then the file will contain two columns with th
    :header-rows: 0
    :class: aligned-text
 
-   * - :cspan:`2` **RLOF_PRE_MT_TIME**
+   * - :cspan:`2` **RLOF_PRE_STEP_STAR_TO_ROCHE_LOBE_RADIUS_RATIO_1**
+     -
+   * - Data type:
+     - DOUBLE
+   * - COMPAS variable:
+     - `derived from` BaseBinaryStar::m_RLOFDetails.propsPreMT→starToRocheLobeRadiusRatio1
+   * - Description:
+     - Ratio of star 1 radius to its RL, at the beginning of the timestep.
+   * - Header String:
+     - Radius(1)|RL<step
+
+.. flat-table::
+   :widths: 25 75 1 1
+   :header-rows: 0
+   :class: aligned-text
+
+   * - :cspan:`2` **RLOF_PRE_STEP_STAR_TO_ROCHE_LOBE_RADIUS_RATIO_2**
+     -
+   * - Data type:
+     - DOUBLE
+   * - COMPAS variable:
+     - `derived from` BaseBinaryStar::m_RLOFDetails.propsPreMT→starToRocheLobeRadiusRatio2
+   * - Description:
+     - Ratio of star 2 radius to its RL, at the beginning of the timestep.
+   * - Header String:
+     - Radius(2)|RL<step
+
+.. flat-table::
+   :widths: 25 75 1 1
+   :header-rows: 0
+   :class: aligned-text
+
+   * - :cspan:`2` **RLOF_TIME_POST_MT**
      -
    * - Data type:
      - DOUBLE
    * - COMPAS variable:
      - BaseBinaryStar::m_RLOFDetails.propsPreMT→time
+   * - Description:
+     - Time since ZAMS (Myr) immediately after RLOF.
+   * - Header String:
+     - Time>MT
+
+.. flat-table::
+   :widths: 25 75 1 1
+   :header-rows: 0
+   :class: aligned-text
+
+   * - :cspan:`2` **RLOF_TIME_PRE_MT**
+     -
+   * - Data type:
+     - DOUBLE
+   * - COMPAS variable:
+     - BaseBinaryStar::m_RLOFDetails.propsPreMT→timePrev
    * - Description:
      - Time since ZAMS (Myr) at the onset of RLOF.
    * - Header String:
@@ -1108,11 +1170,11 @@ but not both. If both are printed then the file will contain two columns with th
    * - Data type:
      - DOUBLE
    * - COMPAS variable:
-     - BinaryConstituentStar::m_RocheLobeRadius
+     - `calculated on demand`
    * - Description:
-     - Roche radius of the primary star (\ :math:`R_\odot`).
+     - Roche radius at peripasis of the primary star (\ :math:`R_\odot`).
    * - Header String:
-     - RocheLobe(1)|a
+     - RocheLobe(1)
 
 .. flat-table::
    :widths: 25 75 1 1
@@ -1124,11 +1186,11 @@ but not both. If both are printed then the file will contain two columns with th
    * - Data type:
      - DOUBLE
    * - COMPAS variable:
-     - BinaryConstituentStar::m_RocheLobeRadius
+     - `calculated on demand`
    * - Description:
-     - Roche radius of the secondary star (\ :math:`R_\odot`).
+     - Roche radius at peripasis of the secondary star (\ :math:`R_\odot`).
    * - Header String:
-     - RocheLobe(2)|a
+     - RocheLobe(2)
 
 .. flat-table::
    :widths: 25 75 1 1
@@ -1591,6 +1653,70 @@ both. If both are printed then the file will contain two columns with the same h
    :header-rows: 0
    :class: aligned-text
 
+   * - :cspan:`2` **SUPERNOVA_ORBIT_INCLINATION_ANGLE**
+     -
+   * - Data type:
+     - DOUBLE
+   * - COMPAS variable:
+     - `derived from` BaseBinaryStar::m_ThetaE
+   * - Description:
+     - Indicates the inclination angle between the pre-supernova and post-supernova orbits, between [0, \ :math:`\pi`]  
+   * - Header String:
+     - Supernova_Orbit_Inclination_Angle
+
+.. flat-table::
+   :widths: 25 75 1 1
+   :header-rows: 0
+   :class: aligned-text
+
+   * - :cspan:`2` **SUPERNOVA_ORBIT_INCLINATION_VECTOR_X**
+     -
+   * - Data type:
+     - DOUBLE
+   * - COMPAS variable:
+     - `derived from` BaseBinaryStar::m_OrbitalAngularMomentumVector.xValue()  
+   * - Description:
+     - x-component of the post-SN orbital AM unit vector in the pre-SN reference frame (with z parallel to preSN orbital AM, and x parallel to the LRL vector)
+   * - Header String:
+     - Orbital_AM_Vector>SN_X
+
+.. flat-table::
+   :widths: 25 75 1 1
+   :header-rows: 0
+   :class: aligned-text
+
+   * - :cspan:`2` **SUPERNOVA_ORBIT_INCLINATION_VECTOR_Y**
+     -
+   * - Data type:
+     - DOUBLE
+   * - COMPAS variable:
+     - `derived from` BaseBinaryStar::m_OrbitalAngularMomentumVector.yValue()  
+   * - Description:
+     - y-component of the post-SN orbital AM unit vector in the pre-SN reference frame (with z parallel to preSN orbital AM, and x parallel to the LRL vector)
+   * - Header String:
+     - Orbital_AM_Vector>SN_Y
+
+.. flat-table::
+   :widths: 25 75 1 1
+   :header-rows: 0
+   :class: aligned-text
+
+   * - :cspan:`2` **SUPERNOVA_ORBIT_INCLINATION_VECTOR_Z**
+     -
+   * - Data type:
+     - DOUBLE
+   * - COMPAS variable:
+     - `derived from` BaseBinaryStar::m_OrbitalAngularMomentumVector.zValue()  
+   * - Description:
+     - z-component of the post-SN orbital AM unit vector in the pre-SN reference frame (with z parallel to preSN orbital AM, and x parallel to the LRL vector)
+   * - Header String:
+     - Orbital_AM_Vector>SN_Z
+
+.. flat-table::
+   :widths: 25 75 1 1
+   :header-rows: 0
+   :class: aligned-text
+
    * - :cspan:`2` **SUPERNOVA_STATE**
      -
    * - Data type:
@@ -1613,7 +1739,6 @@ both. If both are printed then the file will contain two columns with the same h
              - = 2
            * - Both stars are supernovae
              - = 3
-
    * - Header String:
      - Supernova_State
 
@@ -1647,7 +1772,7 @@ both. If both are printed then the file will contain two columns with the same h
    * - Description:
      - Post-supernova systemic (centre-of-mass) velocity (\ :math:`km s^{-1}`).
    * - Header String:
-     - Systemic_Velocity
+     - SystemicSpeed
 
 .. _binary-props-T:
 
