@@ -1,12 +1,18 @@
 name: COMPAS compile test
 
-on: [pull_request]
+on: 
+  pull_request:
+    branches: [dev]
+    paths: ['main/**'] # only changes to src/ trigger this workflow
+  # push: 
+    # branches: [dev]
+    # paths: ['main/**']
 
 jobs:
   compas:
     name: Build COMPAS
     runs-on: ${{ matrix.os}}
-    container: ${{matrix.container}}  # to run the job on centos 7 docker image which runs on ubuntu-18.04 machine
+    # container: ${{matrix.container}}  # to run the job on centos 7 docker image which runs on ubuntu-18.04 machine
     strategy:
       fail-fast: false  #in case build failed on one of the runners, it won't stop building on other runners
       matrix:
@@ -65,23 +71,23 @@ jobs:
       - name: run python scripts on macos
         if: startsWith(matrix.os, 'macos')
         run: |
-          brew install basictex
+          # brew install basictex
           brew install texlive
-          eval "$(/usr/libexec/path_helper)"
-          export PATH="/usr/local/texlive:/Library/TeX/texbin:$PATH"
-          sudo tlmgr update --self
-          sudo tlmgr install dvipng
-          sudo tlmgr install texliveonfly
-          sudo tlmgr install environ
-          sudo tlmgr install adjustbox
-          sudo tlmgr install tcolorbox
-          sudo tlmgr install collectbox
-          sudo tlmgr install ucs
-          sudo tlmgr install trimspaces
-          sudo tlmgr install titling
-          sudo tlmgr install enumitem
-          sudo tlmgr install rsfs
-          eval "$(/usr/libexec/path_helper)"
+          # eval "$(/usr/libexec/path_helper)"
+          # export PATH="/usr/local/texlive:/Library/TeX/texbin:$PATH"
+          # sudo tlmgr update --self
+          # sudo tlmgr install dvipng
+          # sudo tlmgr install texliveonfly
+          # sudo tlmgr install environ
+          # sudo tlmgr install adjustbox
+          # sudo tlmgr install tcolorbox
+          # sudo tlmgr install collectbox
+          # sudo tlmgr install ucs
+          # sudo tlmgr install trimspaces
+          # sudo tlmgr install titling
+          # sudo tlmgr install enumitem
+          # sudo tlmgr install rsfs
+          # eval "$(/usr/libexec/path_helper)"
           export COMPAS_ROOT_DIR=${GITHUB_WORKSPACE}
           cd ${GITHUB_WORKSPACE}/utils/example_plots/methods_paper_plots/detailed_evolution
           python3 runSubmitDemo.py

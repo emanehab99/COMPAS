@@ -1,15 +1,16 @@
 #! /bin/sh
 
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-brew --version
+# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+# brew --version
+brew update
 brew install gsl
 brew install boost
 brew install hdf5
-brew install mactex
-eval "$(/usr/libexec/path_helper)"
-export PATH="/usr/local/texlive:/Library/TeX/texbin:$PATH"
-pdflatex --version
+# brew install mactex
+# eval "$(/usr/libexec/path_helper)"
+# export PATH="/usr/local/texlive:/Library/TeX/texbin:$PATH"
+# pdflatex --version
 
 # brew install basictex
 # eval "$(/usr/libexec/path_helper)"
