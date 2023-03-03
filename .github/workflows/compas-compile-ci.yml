@@ -1,10 +1,11 @@
 name: COMPAS compile test
 
-on: [pull_request]
-    # branches: [dev]
-    # paths: ['main/**'] # only changes to src/ trigger this workflow
-  # push: 
-    # branches: [dev]
+on: 
+  # pull_request:
+  #   # branches: [dev]
+  #   # paths: ['main/**'] # only changes to src/ trigger this workflow
+  push: 
+    branches: [dev]
     # paths: ['main/**']
 
 jobs:
@@ -70,8 +71,8 @@ jobs:
       - name: run python scripts on macos
         if: startsWith(matrix.os, 'macos')
         run: |
-          # brew install basictex
-          brew install texlive
+          brew install basictex
+          # brew install texlive
           # eval "$(/usr/libexec/path_helper)"
           # export PATH="/usr/local/texlive:/Library/TeX/texbin:$PATH"
           # sudo tlmgr update --self
