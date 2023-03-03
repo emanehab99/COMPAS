@@ -5,7 +5,7 @@ on:
   #   # branches: [dev]
   #   # paths: ['main/**'] # only changes to src/ trigger this workflow
   push: 
-    branches: [dev]
+    # branches: [dev]
     # paths: ['main/**']
 
 jobs:
