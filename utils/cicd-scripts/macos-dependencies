@@ -3,7 +3,3 @@ brew install gsl
 brew install boost
 brew install hdf5
 brew install texlive
-brew link gsl
-brew link boost
-brew link hdf5
-brew link texlive

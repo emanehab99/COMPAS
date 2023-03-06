@@ -29,6 +29,7 @@ jobs:
 
       
       - name: Cache brew deps
+        id: cache-homebrew-packages
         uses: actions/cache@v3
         with:
           # Paths to cache:
@@ -66,6 +67,15 @@ jobs:
           cd utils/cicd-scripts
           chmod 755 macos-dependencies
           ./macos-dependencies
+
+      - name: Link macos deps if it was a cache hit
+        if: startsWith(matrix.os, 'macos') && steps.cache-homebrew-packages.outputs.cache-hit == 'true'
+        run: |
+          brew link gsl
+          brew link boost
+          brew link hdf5
+          brew link texlive
+
       # This step will run only on all runners
       # **To be investgated further** COMPAS doesn't build on Centos
       - name: Build Compas
