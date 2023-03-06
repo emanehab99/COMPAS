@@ -62,33 +62,16 @@ jobs:
       # **To be investigated further** plotting script is currently failing on macos because 
       # for some reason it cannot recognise latex is installed
       - name: Run Post-Processing Python Scripts
-        if: startsWith(matrix.os, 'ubuntu-20') || startsWith(matrix.os, 'ubuntu-18')
+        # if: startsWith(matrix.os, 'ubuntu-20') || startsWith(matrix.os, 'ubuntu-18')
         run: |
           cd utils/cicd-scripts
           chmod 755 python-scripts
           ./python-scripts
-      - name: run python scripts on macos
-        if: startsWith(matrix.os, 'macos')
-        run: |
-          # brew install basictex
-          
-          # brew install mactex
-          # eval "$(/usr/libexec/path_helper)"
-          # export PATH="/usr/local/texlive:/Library/TeX/texbin:$PATH"
-          # sudo tlmgr update --self
-          # sudo tlmgr install dvipng
-          # sudo tlmgr install texliveonfly
-          # sudo tlmgr install environ
-          # sudo tlmgr install adjustbox
-          # sudo tlmgr install tcolorbox
-          # sudo tlmgr install collectbox
-          # sudo tlmgr install ucs
-          # sudo tlmgr install trimspaces
-          # sudo tlmgr install titling
-          # sudo tlmgr install enumitem
-          # sudo tlmgr install rsfs
-          # eval "$(/usr/libexec/path_helper)"
-          export COMPAS_ROOT_DIR=${GITHUB_WORKSPACE}
-          cd ${GITHUB_WORKSPACE}/utils/examples/methods_paper_plots/detailed_evolution
-          python3 runSubmitDemo.py
-          python3 plot_detailed_evolution.py
+      # - name: run python scripts on macos
+      #   if: startsWith(matrix.os, 'macos')
+      #   run: |
+      
+      #     export COMPAS_ROOT_DIR=${GITHUB_WORKSPACE}
+      #     cd ${GITHUB_WORKSPACE}/utils/examples/methods_paper_plots/detailed_evolution
+      #     python3 runSubmitDemo.py
+      #     python3 plot_detailed_evolution.py
