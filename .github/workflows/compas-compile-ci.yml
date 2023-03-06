@@ -27,19 +27,21 @@ jobs:
           python-version: '3.8'
           cache: 'pip'
 
-      - name: Cache Homebrew Packages
-        id: cache-homebrew-packages
+      
+      - name: Cache brew deps
         uses: actions/cache@v3
-        env:
-          cache-name: homebrew-packages
         with:
-          path: $(brew --prefix)
-          key: ${{ matrix.os }}-${{ env.cache-name }}-${{ hashFiles('.config/brew/Brewfile') }}
-        if: startsWith(matrix.os, 'macos')
-
-      # - name: Clean Homebrew Packages
-      #   run: brew list --formula | xargs -n1 brew uninstall -f --ignore-dependencies && rm $(brew --prefix)/bin/{aws,aws_completer,conda}
-      #   if: startsWith(matrix.os, 'macos') && steps.cache-homebrew-packages.outputs.cache-hit != 'true'
+          # Paths to cache:
+          # /usr/local/Homebrew - installation folder of Homebrew
+          # /usr/local/Cellar - installation folder of Homebrew formulae
+          # /usr/local/Frameworks, /usr/local/bin, /usr/local/opt - contain (links to) binaries installed by Homebrew formulae
+          path: |
+            /usr/local/Homebrew
+            /usr/local/Cellar
+            /usr/local/Frameworks
+            /usr/local/bin
+            /usr/local/opt
+          key: macos-12-build-cache-${{ hashFiles('./scripts/builder_setup.sh') }}-v2
 
 
       # This step will run only on ubuntu-20.04
@@ -86,4 +88,3 @@ jobs:
           cd utils/cicd-scripts
           chmod 755 python-scripts
           ./python-scripts
-          
