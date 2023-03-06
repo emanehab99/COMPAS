@@ -37,9 +37,9 @@ jobs:
           key: ${{ matrix.os }}-${{ env.cache-name }}-${{ hashFiles('.config/brew/Brewfile') }}
         if: startsWith(matrix.os, 'macos')
 
-      - name: Clean Homebrew Packages
-        run: brew list --formula | xargs -n1 brew uninstall -f --ignore-dependencies && rm $(brew --prefix)/bin/{aws,aws_completer,conda}
-        if: startsWith(matrix.os, 'macos') && steps.cache-homebrew-packages.outputs.cache-hit != 'true'
+      # - name: Clean Homebrew Packages
+      #   run: brew list --formula | xargs -n1 brew uninstall -f --ignore-dependencies && rm $(brew --prefix)/bin/{aws,aws_completer,conda}
+      #   if: startsWith(matrix.os, 'macos') && steps.cache-homebrew-packages.outputs.cache-hit != 'true'
 
 
       # This step will run only on ubuntu-20.04
