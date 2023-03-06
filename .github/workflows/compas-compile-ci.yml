@@ -75,15 +75,13 @@ jobs:
         env:
           nproc: 4
 
-      # This step will run only on all runners
+      # This step will run on all runners
       - name: Install Python packages
         run: |
           pip install -r requirements.txt
+          
       # This step will run on all runners
-      # **To be investigated further** plotting script is currently failing on macos because 
-      # for some reason it cannot recognise latex is installed
       - name: Run Post-Processing Python Scripts
-        # if: startsWith(matrix.os, 'ubuntu-20') || startsWith(matrix.os, 'ubuntu-18')
         run: |
           cd utils/cicd-scripts
           chmod 755 python-scripts
