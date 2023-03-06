@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false  #in case build failed on one of the runners, it won't stop building on other runners
       matrix:
-        os: [ubuntu-20.04, macos-12]  # runners(virtual machines) to run the job on
+        os: [macos-latest]  # runners(virtual machines) to run the job on
         # include: # add the combination to run the centos container only on ubuntu-18.04
         #   - os: ubuntu-18.04
         #     container: 'centos:7'
@@ -26,6 +26,21 @@ jobs:
         with:
           python-version: '3.8'
           cache: 'pip'
+
+      - name: Cache Homebrew Packages
+        id: cache-homebrew-packages
+        uses: actions/cache@v3
+        env:
+          cache-name: homebrew-packages
+        with:
+          path: $(brew --prefix)
+          key: ${{ matrix.os }}-${{ env.cache-name }}-${{ hashFiles('.config/brew/Brewfile') }}
+        if: startsWith(matrix.os, 'macos')
+
+      - name: Clean Homebrew Packages
+        run: brew list --formula | xargs -n1 brew uninstall -f --ignore-dependencies && rm $(brew --prefix)/bin/{aws,aws_completer,conda}
+        if: startsWith(matrix.os, 'macos') && steps.cache-homebrew-packages.outputs.cache-hit != 'true'
+
 
       # This step will run only on ubuntu-20.04
       - name: Install dependencies on ubuntu
