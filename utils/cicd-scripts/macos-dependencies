@@ -7,6 +7,7 @@ brew update
 brew install gsl
 brew install boost
 brew install hdf5
+brew install texlive
 # brew install mactex
 # eval "$(/usr/libexec/path_helper)"
 # export PATH="/usr/local/texlive:/Library/TeX/texbin:$PATH"
