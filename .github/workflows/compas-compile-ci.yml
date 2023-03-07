@@ -47,7 +47,7 @@ jobs:
       - name: Cache apt deps on ubuntu
         id: cache-apt-packages
         uses: actions/cache@v3
-        if: startsWith(matrix.os, 'ubuntu-20') 
+        if: startsWith(matrix.os, 'ubuntu') 
         with:
           path: |
             /usr/include/~
@@ -57,11 +57,12 @@ jobs:
 
       # This step will run only on ubuntu-20.04
       - name: Install dependencies on ubuntu
-        if: startsWith(matrix.os, 'ubuntu-20') 
+        if: startsWith(matrix.os, 'ubuntu') 
         run: |
           cd utils/cicd-scripts
           chmod 755 linux-dependencies
           ./linux-dependencies
+
       # This step will run only on centos 7 container on ubuntu-18.04
       - name: Install dependencies on centos docker container
         if: startsWith(matrix.container, 'centos')
