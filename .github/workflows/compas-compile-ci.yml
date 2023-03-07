@@ -44,6 +44,16 @@ jobs:
             /usr/local/opt
           key: macos-12-build-cache-${{ hashFiles('./scripts/builder_setup.sh') }}-v2
 
+      - name: Cache apt deps on ubuntu
+        id: cache-apt-packages
+        uses: actions/cache@v3
+        if: startsWith(matrix.os, 'ubuntu-20') 
+        with:
+          path: |
+            /usr/include/~
+            /usr/bin/~
+            /usr/lib/~
+          key: ubuntu-build-cache-${{ hashFiles('./scripts/builder_setup.sh') }}
 
       # This step will run only on ubuntu-20.04
       - name: Install dependencies on ubuntu
