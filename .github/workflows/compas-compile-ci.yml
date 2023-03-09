@@ -1,8 +1,13 @@
 name: COMPAS compile test
 
 on: [pull_request]
-    # branches: [dev]
-    # paths: ['main/**'] # only changes to src/ trigger this workflow
+    branches: [dev]
+    paths: 
+      - 'src/**'
+      - '.github/workflows/compas-compile-ci.yml'
+      - 'utils/cicd-scripts/**'
+      - 'utils/examples/methods_paper_plots/detailed_evolution/**'
+      - 'utils/media/**'
   # push: 
     # branches: [dev]
     # paths: ['main/**']
