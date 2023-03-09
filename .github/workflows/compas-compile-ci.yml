@@ -9,22 +9,19 @@ on:
       - 'utils/cicd-scripts/**'
       - 'utils/examples/methods_paper_plots/detailed_evolution/**'
       - 'utils/media/**'
-  # push: 
-    # branches: [dev]
-    # paths: ['main/**']
 
 jobs:
   compas:
     name: Build COMPAS
     runs-on: ${{ matrix.os}}
-    # container: ${{matrix.container}}  # to run the job on centos 7 docker image which runs on ubuntu-18.04 machine
+    container: ${{matrix.container}}  # to run the job on centos 7 docker image which runs on ubuntu-18.04 machine
     strategy:
       fail-fast: false  #in case build failed on one of the runners, it won't stop building on other runners
       matrix:
-        os: [ubuntu-20.04, macos-12]  # runners(virtual machines) to run the job on
-        # include: # add the combination to run the centos container only on ubuntu-18.04
-        #   - os: ubuntu-18.04
-        #     container: 'centos:7'
+        os: [ubuntu-20.04]  # runners(virtual machines) to run the job on
+        include: # add the combination to run the centos container only on ubuntu-18.04
+          - os: ubuntu-20.04
+            container: 'centos:7'
 
     steps:
       - uses: actions/checkout@v3
@@ -38,10 +35,6 @@ jobs:
         uses: actions/cache@v3
         if: startsWith(matrix.os, 'macos') 
         with:
-          # Paths to cache:
-          # /usr/local/Homebrew - installation folder of Homebrew
-          # /usr/local/Cellar - installation folder of Homebrew formulae
-          # /usr/local/Frameworks, /usr/local/bin, /usr/local/opt - contain (links to) binaries installed by Homebrew formulae
           path: |
             /usr/local/Homebrew
             /usr/local/Cellar
@@ -82,7 +75,7 @@ jobs:
           brew link hdf5
           brew link texlive
 
-      # This step will run only on all runners
+      # This step will run  on all runners
       # **To be investgated further** COMPAS doesn't build on Centos
       - name: Build Compas
         run: |
