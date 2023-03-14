@@ -16,7 +16,7 @@ from matplotlib.legend import Legend
 from matplotlib import rcParams, transforms, patches
 import matplotlib.gridspec as gridspec
 
-compasRootDir = os.path.expandvars(os.environ['COMPAS_ROOT_DIR'])
+compasRootDir = os.path.expanduser(os.path.expandvars(os.environ['COMPAS_ROOT_DIR']))
 
 def main():
     ### Read file and create dataframe.
@@ -38,7 +38,7 @@ def main():
     makeDetailedPlots(Data, events)
     plotVanDenHeuvel(events=events)
     plt.savefig('vanDenHeuvelPlot.eps', bbox_inches='tight',pad_inches = 0, format='eps')
-    plt.show()
+    # plt.show()
 
 
 fontparams = {
